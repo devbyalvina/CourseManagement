@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
+@Table (name = "CourseRegistration")
 class CourseRegistrationJpaEntity (
     @EmbeddedId
     val courseRegistrationJpaEntityPk: CourseRegistrationJpaEntityPk,
