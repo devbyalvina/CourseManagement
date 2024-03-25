@@ -1,11 +1,11 @@
-package com.practice.coursemanagement.course.domain
+package com.practice.coursemanagement.course.application.domain.model
 
 import java.time.LocalDateTime
 
-data class Course(
+data class CourseInformation (
     val courseId: Long,
     val courseName: String,
-    val startDateTime: LocalDateTime,
+    val startSignUpDateTime: LocalDateTime,
     val capacity: Long,
     val updateDateTime: LocalDateTime
 )

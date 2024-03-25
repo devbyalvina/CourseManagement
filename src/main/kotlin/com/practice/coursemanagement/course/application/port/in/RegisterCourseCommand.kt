@@ -1,8 +1,8 @@
-package com.practice.coursemanagement.course.domain
+package com.practice.coursemanagement.course.application.port.`in`
 
 import java.time.LocalDateTime
 
-data class Registration (
+data class RegisterCourseCommand (
     val courseId: Long,
     val userId: Long,
     val updateDateTime: LocalDateTime

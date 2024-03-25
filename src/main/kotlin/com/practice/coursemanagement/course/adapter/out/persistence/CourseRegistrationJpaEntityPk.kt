@@ -4,7 +4,7 @@ import jakarta.persistence.Embeddable
 import java.io.Serializable
 
 @Embeddable
-data class RegistrationJpaEntityPk(
+data class CourseRegistrationJpaEntityPk(
     var courseId: Long,
     var userId: Long
 ): Serializable
