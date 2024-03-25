@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
+@Table (name = "CourseInformation")
 class CourseInformationJpaEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
