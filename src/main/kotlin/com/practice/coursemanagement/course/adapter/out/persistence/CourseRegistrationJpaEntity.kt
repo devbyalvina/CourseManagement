@@ -13,7 +13,11 @@ class CourseRegistrationJpaEntity (
 
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
-    val updateDateTime: LocalDateTime
+    val updateDateTime: LocalDateTime,
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "courseInformation", nullable = false)
+//    val courseInformation: CourseInformation
 ) {
     fun toDomain() = CourseRegistration (
         courseId = courseRegistrationJpaEntityPk.courseId,
