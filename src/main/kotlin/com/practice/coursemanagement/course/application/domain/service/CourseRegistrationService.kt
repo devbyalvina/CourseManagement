@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service
 
 
 @Service
-@Transactional
 class CourseRegistrationService (
     private val getCourseInformationPort: GetCourseInformationPort,
     private val getRegistrationCountPort: GetRegistrationCountPort,
     private val registerCoursePort: RegisterCoursePort,
     private val getRegistrationStatusPort: GetRegistrationStatusPort,
 ) : CourseInformationUseCase, CourseRegistrationUseCase{
-
     /**
      *  수강신청
      */
