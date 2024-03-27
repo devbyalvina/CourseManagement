@@ -14,12 +14,4 @@ class CourseRegistrationPersistenceMapper {
             courseRegistration.updateDateTime
         )
     }
-
-    fun mapToDomain(courseRegistrationJpaEntity: CourseRegistrationJpaEntity): CourseRegistration {
-        return CourseRegistration (
-            courseRegistrationJpaEntity.courseRegistrationJpaEntityPk.courseId,
-            courseRegistrationJpaEntity.courseRegistrationJpaEntityPk.userId,
-            courseRegistrationJpaEntity.updateDateTime
-        )
-    }
 }

@@ -1,5 +1,6 @@
 package com.practice.coursemanagement.course.adapter.`in`.web
 
+import com.practice.coursemanagement.course.application.domain.model.CourseRegistration
 import com.practice.coursemanagement.course.application.port.`in`.CourseRegistrationUseCase
 import com.practice.coursemanagement.course.application.port.`in`.GetRegistrationStatusCommand
 import com.practice.coursemanagement.course.application.port.`in`.RegisterCourseCommand
@@ -17,9 +18,10 @@ class CourseRegistrationController (
     @PatchMapping("/registerCourse")
     fun registerCourse(
         @RequestBody registerCourseRequest: RegisterCourseRequest
-    ): CourseRegistrationResponse {
+    ): CourseRegistrationResponse<CourseRegistration> {
         val registerCourseCommand = RegisterCourseCommand(registerCourseRequest.courseId, registerCourseRequest.userId, LocalDateTime.now())
-        return CourseRegistrationResponse.of(courseRegistrationUseCase.registerCourse(registerCourseCommand))
+        val result = courseRegistrationUseCase.registerCourse(registerCourseCommand)
+        return CourseRegistrationResponse.ok(result)
     }
 
     /**
@@ -29,8 +31,9 @@ class CourseRegistrationController (
     fun getRegistrationStatus(
         @PathVariable courseId: Long,
         @PathVariable userId: Long
-    ): CourseRegistrationResponse {
+    ): CourseRegistrationResponse<CourseRegistration> {
         val getRegistrationStatusCommand = GetRegistrationStatusCommand(courseId, userId)
-        return CourseRegistrationResponse.of(courseRegistrationUseCase.getRegistrationStatus(getRegistrationStatusCommand))
+        val result = courseRegistrationUseCase.getRegistrationStatus(getRegistrationStatusCommand)
+        return CourseRegistrationResponse.ok(result)
     }
 }

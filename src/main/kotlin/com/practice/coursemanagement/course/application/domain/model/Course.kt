@@ -1,0 +1,38 @@
+package com.practice.coursemanagement.course.application.domain.model
+
+import com.practice.coursemanagement.course.application.domain.Exception.CourseErrorCode
+import com.practice.coursemanagement.course.application.domain.Exception.CourseException
+import java.time.LocalDateTime
+
+data class Course (
+    /* 강의 기본 property */
+    // 강의 ID
+    val courseId: Long,
+    // 강의명
+    val courseName: String,
+    // 수강신청 시작 시간
+    val startSignUpDateTime: LocalDateTime,
+    // 정원
+    val capacity: Long,
+    // 수정일자
+    val updateDateTime: LocalDateTime,
+
+    /* 강의 신청자 property */
+    // 강의 신청자 수
+    val registeredCount: Long?,
+    // 강의 신청자 목록
+    val courseRegistrationList : List<CourseRegistration>?
+){
+    // 날짜 validation 체크
+    fun validateStartSignUpDateTime(requestDateTime: LocalDateTime) {
+        if (requestDateTime.isBefore(startSignUpDateTime))
+            throw CourseException(CourseErrorCode.INVALID_REGISTER_DATE_TIME)
+    }
+
+    // 수강신청 가능 인원수 validation 체크
+    fun validateCapacity() {
+        if (capacity <= (registeredCount ?: 0)) {
+            throw CourseException(CourseErrorCode.EXCESSIVE_COURSE_CAPACITY)
+        }
+    }
+}

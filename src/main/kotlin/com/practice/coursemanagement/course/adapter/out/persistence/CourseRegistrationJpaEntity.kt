@@ -21,6 +21,7 @@ class CourseRegistrationJpaEntity (
 ) {
     fun toDomain() = CourseRegistration (
         courseId = courseRegistrationJpaEntityPk.courseId,
+        courseName = null,
         userId = courseRegistrationJpaEntityPk.userId,
         updateDateTime = updateDateTime
     )

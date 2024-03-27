@@ -1,7 +1,9 @@
 package com.practice.coursemanagement.course.application.port.`in`
 
-interface CourseRegistrationUseCase {
-    fun registerCourse (registerCourseCommand: RegisterCourseCommand): CourseRegistrationResult
+import com.practice.coursemanagement.course.application.domain.model.CourseRegistration
 
-    fun getRegistrationStatus (getRegistrationStatusCommand: GetRegistrationStatusCommand): CourseRegistrationResult
+interface CourseRegistrationUseCase {
+    fun registerCourse (registerCourseCommand: RegisterCourseCommand): CourseRegistration
+
+    fun getRegistrationStatus (getRegistrationStatusCommand: GetRegistrationStatusCommand): CourseRegistration
 }
