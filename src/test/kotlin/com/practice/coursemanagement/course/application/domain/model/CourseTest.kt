@@ -46,9 +46,11 @@ class CourseTest {
     fun `신청 목록에 있는 신청자가 중복 신청을 하면 예외가 발생한다`() {
         // given
         val date = LocalDateTime.now()
-        val registrationList = listOf( CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now())
-                                     , CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now())
-                                     )
+        val registrationList = listOf(
+                CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now()),
+                CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now())
+            )
+
         val course = Course( 1
                            , "테스트 강의"
                            , date

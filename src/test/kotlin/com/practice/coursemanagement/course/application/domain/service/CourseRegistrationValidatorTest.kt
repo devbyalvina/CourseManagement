@@ -13,13 +13,15 @@ class CourseRegistrationValidatorTest {
     fun `수강 신청 요청시간이 수강 신청 시작 시간보다 이전이면 예외가 발생한다`() {
         // given
         val date = LocalDateTime.now()
-        val course = Course( 1
-                           , "테스트 강의"
-                           , date.plusMinutes(5)
-                           , 10
-                           , date.minusDays(1)
-                           , 5
-                           , null)
+        val course = Course(
+            1,
+            "테스트 강의",
+            date.plusMinutes(5),
+            10,
+            date.minusDays(1),
+            5,
+            null
+        )
 
         val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
 
@@ -33,13 +35,15 @@ class CourseRegistrationValidatorTest {
     fun `강의 신청자 수가 수강 신청 정원보다 크거나 같으면 예외가 발생한다`() {
         // given
         val date = LocalDateTime.now()
-        val course = Course( 1
-                           , "테스트 강의"
-                           , date
-                           , 10
-                           , date.minusDays(1)
-                           , 10
-                           , null)
+        val course = Course(
+            1,
+            "테스트 강의",
+            date,
+            10,
+            date.minusDays(1),
+            10,
+            null
+        )
         val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
 
         // when, then
@@ -53,21 +57,24 @@ class CourseRegistrationValidatorTest {
     fun `신청 목록에 있는 신청자가 중복 신청을 하면 예외가 발생한다`() {
         // given
         val date = LocalDateTime.now()
-        val registrationList = listOf( CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now())
-                                     , CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now())
+        val registrationList = listOf(
+            CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now()),
+            CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now())
         )
-        val course = Course( 1
-                           , "테스트 강의"
-                           , date
-                           , 10
-                           , date.minusDays(1)
-                           , 10
-                           , registrationList)
+        val course = Course(
+            1,
+            "테스트 강의",
+            date,
+            10,
+            date.minusDays(1),
+            10,
+            registrationList
+        )
         val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
 
         // when, then
         assertThatThrownBy { course.validateDuplication(registerCourseCommand.userId) }
             .isInstanceOf(CourseException::class.java)
-            .hasMessage("이미 수강신청힌 유저입니다.")
+            .hasMessage("이미 수강신청한 유저입니다.")
     }
 }
