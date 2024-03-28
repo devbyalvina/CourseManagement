@@ -11,7 +11,7 @@ class CourseRegistrationJpaEntity (
     @EmbeddedId
     val courseRegistrationJpaEntityPk: CourseRegistrationJpaEntityPk,
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(nullable = false)
     @UpdateTimestamp
     val updateDateTime: LocalDateTime,
 
