@@ -2,6 +2,7 @@ package com.practice.coursemanagement.course.application.domain.service
 
 import com.practice.coursemanagement.course.application.domain.Exception.CourseException
 import com.practice.coursemanagement.course.application.domain.model.Course
+import com.practice.coursemanagement.course.application.domain.model.CourseRegistration
 import com.practice.coursemanagement.course.application.port.`in`.RegisterCourseCommand
 import org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy
 import org.junit.jupiter.api.Test
@@ -36,7 +37,7 @@ class CourseRegistrationValidatorTest {
                            , "테스트 강의"
                            , date
                            , 10
-                           , date
+                           , date.minusDays(1)
                            , 10
                            , null)
         val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
@@ -46,5 +47,27 @@ class CourseRegistrationValidatorTest {
             .isInstanceOf(CourseException::class.java)
             .hasMessage("수강신청 가능 정원을 초과하였습니다.")
 
+    }
+
+    @Test
+    fun `신청 목록에 있는 신청자가 중복 신청을 하면 예외가 발생한다`() {
+        // given
+        val date = LocalDateTime.now()
+        val registrationList = listOf( CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now())
+                                     , CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now())
+        )
+        val course = Course( 1
+                           , "테스트 강의"
+                           , date
+                           , 10
+                           , date.minusDays(1)
+                           , 10
+                           , registrationList)
+        val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
+
+        // when, then
+        assertThatThrownBy { course.validateDuplication(registerCourseCommand.userId) }
+            .isInstanceOf(CourseException::class.java)
+            .hasMessage("이미 수강신청힌 유저입니다.")
     }
 }

@@ -9,5 +9,7 @@ object CourseRegistrationValidator {
         course.validateStartSignUpDateTime(registerCourseCommand.updateDateTime)
         // 수강신청 가능 인원수 validation 체크
         course.validateCapacity()
+        // 중복 신청 여부 validation 체크
+        course.validateDuplication(registerCourseCommand.userId)
     }
 }

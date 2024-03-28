@@ -35,4 +35,9 @@ data class Course (
             throw CourseException(CourseErrorCode.EXCESSIVE_COURSE_CAPACITY)
         }
     }
+
+    // 중복 신청 validation 체크
+    fun validateDuplication(userId: Long) {
+        courseRegistrationList?.any{it.userId == userId}.takeIf { throw CourseException(CourseErrorCode.DUPLICATED_REGISTRATION) }
+    }
 }
