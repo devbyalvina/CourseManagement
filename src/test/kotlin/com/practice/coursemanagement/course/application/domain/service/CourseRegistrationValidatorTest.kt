@@ -19,7 +19,6 @@ class CourseRegistrationValidatorTest {
             date.plusMinutes(5),
             10,
             date.minusDays(1),
-            5,
             null
         )
 
@@ -35,16 +34,20 @@ class CourseRegistrationValidatorTest {
     fun `강의 신청자 수가 수강 신청 정원보다 크거나 같으면 예외가 발생한다`() {
         // given
         val date = LocalDateTime.now()
+        val registrationList = listOf(
+            CourseRegistration(1, "테스트 강의", 1000, LocalDateTime.now()),
+            CourseRegistration(1, "테스트 강의", 1001, LocalDateTime.now()),
+            CourseRegistration(1, "테스트 강의", 1002, LocalDateTime.now()),
+        )
         val course = Course(
             1,
             "테스트 강의",
             date,
-            10,
+            3,
             date.minusDays(1),
-            10,
-            null
+            registrationList
         )
-        val registerCourseCommand = RegisterCourseCommand (1, 1000, date)
+        val registerCourseCommand = RegisterCourseCommand (1, 1003, date)
 
         // when, then
         assertThatThrownBy { CourseRegistrationValidator.validateCourse(course, registerCourseCommand) }
@@ -67,7 +70,6 @@ class CourseRegistrationValidatorTest {
             date,
             10,
             date.minusDays(1),
-            10,
             registrationList
         )
         val registerCourseCommand = RegisterCourseCommand (1, 1000, date)

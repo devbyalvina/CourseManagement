@@ -34,7 +34,6 @@ class CourseRegistrationServiceTest {
                     date.minusMinutes(5),
                     10,
                     date.minusDays(2),
-                    2,
                     registrationList
                 )
             }
@@ -78,7 +77,6 @@ class CourseRegistrationServiceTest {
                     date.plusDays(5),
                     10,
                     date.minusDays(2),
-                    2,
                     null
                 )
             }
@@ -92,7 +90,7 @@ class CourseRegistrationServiceTest {
 
         val registerCourseCommand = RegisterCourseCommand (courseId = 1, userId = 1000, updateDateTime = LocalDateTime.now())
 
-        // act & assert
+        // act, assert
         AssertionsForClassTypes.assertThatThrownBy {sut.registerCourse(registerCourseCommand) }
             .isInstanceOf(CourseException::class.java)
             .hasMessage("수강 신청 기간이 아닙니다.")
@@ -119,7 +117,6 @@ class CourseRegistrationServiceTest {
                     date.minusMinutes(5),
                     5,
                     date.minusDays(2),
-                    5,
                     registrationList
                 )
             }
@@ -133,7 +130,7 @@ class CourseRegistrationServiceTest {
 
         val registerCourseCommand = RegisterCourseCommand (courseId = 1, userId = 1005, updateDateTime = LocalDateTime.now())
 
-        // act & assert
+        // act, assert
         AssertionsForClassTypes.assertThatThrownBy {sut.registerCourse(registerCourseCommand) }
             .isInstanceOf(CourseException::class.java)
             .hasMessage("수강신청 가능 정원을 초과하였습니다.")
@@ -157,7 +154,6 @@ class CourseRegistrationServiceTest {
                     date.minusMinutes(5),
                     10,
                     date.minusDays(2),
-                    2,
                     registrationList
                 )
             }
@@ -171,7 +167,7 @@ class CourseRegistrationServiceTest {
 
         val registerCourseCommand = RegisterCourseCommand (courseId = 1, userId = 1001, updateDateTime = LocalDateTime.now())
 
-        // act & assert
+        // act, assert
         AssertionsForClassTypes.assertThatThrownBy {sut.registerCourse(registerCourseCommand) }
             .isInstanceOf(CourseException::class.java)
             .hasMessage("이미 수강신청한 유저입니다.")

@@ -18,8 +18,6 @@ data class Course (
     val updateDateTime: LocalDateTime,
 
     /* 강의 신청자 property */
-    // 강의 신청자 수
-    val registeredCount: Long?,
     // 강의 신청자 목록
     val courseRegistrationList : List<CourseRegistration>?
 ){
@@ -31,7 +29,7 @@ data class Course (
 
     // 수강신청 가능 인원수 validation 체크
     fun validateCapacity() {
-        if (capacity <= (registeredCount ?: 0)) {
+        if (capacity <= (courseRegistrationList?.size ?: 0)) {
             throw CourseException(CourseErrorCode.EXCESSIVE_COURSE_CAPACITY)
         }
     }
