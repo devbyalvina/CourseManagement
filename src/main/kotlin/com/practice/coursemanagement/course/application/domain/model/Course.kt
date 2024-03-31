@@ -36,7 +36,6 @@ data class Course (
 
     // 중복 신청 validation 체크
     fun validateDuplication(userId: Long) {
-        //courseRegistrationList?.any{it.userId == userId}.takeIf { throw CourseException(CourseErrorCode.DUPLICATED_REGISTRATION) }
         if (courseRegistrationList?.any{it.userId == userId} == true) {
             throw CourseException(CourseErrorCode.DUPLICATED_REGISTRATION)
         }
