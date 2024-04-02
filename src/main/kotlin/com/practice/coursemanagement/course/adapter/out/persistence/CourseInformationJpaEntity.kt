@@ -1,5 +1,6 @@
 package com.practice.coursemanagement.course.adapter.out.persistence
 
+import com.practice.coursemanagement.course.application.domain.model.Course
 import jakarta.persistence.*
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
@@ -22,5 +23,19 @@ class CourseInformationJpaEntity (
 
     @Column(nullable = false)
     @UpdateTimestamp
-    val updateDateTime: LocalDateTime
-)
+    val updateDateTime: LocalDateTime,
+) {
+    @OneToMany(fetch = FetchType.LAZY)
+    val _courseRegistrationList: MutableList<CourseRegistrationJpaEntity> = mutableListOf()
+    val courseRegistrationList: List<CourseRegistrationJpaEntity>
+        get() = _courseRegistrationList
+
+    fun toDomain() = Course (
+        courseId = courseId,
+        courseName = courseName,
+        startSignUpDateTime = startSignUpDateTime,
+        capacity = capacity,
+        updateDateTime = updateDateTime,
+        courseRegistrationList = courseRegistrationList.map{ it.toDomain() }
+    )
+}
